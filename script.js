@@ -18,7 +18,7 @@ document.getElementById("analyzeBtn").addEventListener("click", async function (
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: `Classify this caption as a danger or safe situation and reply in one word at any cost either danger or safe: "${text}"` }]
+                    parts: [{ text: `Classify this caption as a toxic or clean situation and reply in one word at any cost either toxic or clean: "${text}"` }]
                 }]
             }),
         });
@@ -29,10 +29,10 @@ document.getElementById("analyzeBtn").addEventListener("click", async function (
         if (data && data.candidates && data.candidates.length > 0) {
             const result = data.candidates[0].content.parts[0].text.trim().toLowerCase();
 
-            if (result === "danger" || result === "safe") {
-                resultBox.classList.remove("loading", "safe", "danger");
+            if (result === "clean" || result === "toxic") {
+                resultBox.classList.remove("loading", "clean", "toxic");
                 resultBox.classList.add(result);
-                statusText.innerText = result === "danger" ? "Danger ⚠️" : "Safe ✅";
+                statusText.innerText = result === "toxic" ? "Toxic ⚠️" : "Clean ✅";
             } else {
                 statusText.innerText = "Error in response";
             }
